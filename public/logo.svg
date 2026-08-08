@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <radialGradient id="sphere" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(180 140) rotate(53.13) scale(260)">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.42" stop-color="#e0f7fa"/>
+      <stop offset="1" stop-color="#00e5ff"/>
+    </radialGradient>
+    <linearGradient id="shadow" x1="132" y1="116" x2="372" y2="388" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00b3cc" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0.12"/>
+    </linearGradient>
+    <filter id="glow" x="62" y="62" width="388" height="388" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <circle cx="256" cy="256" r="188" fill="url(#sphere)"/>
+  <circle cx="256" cy="256" r="188" fill="url(#shadow)" opacity="0.65"/>
+  <circle cx="256" cy="256" r="188" fill="none" stroke="#00e5ff" stroke-opacity="0.28" stroke-width="8"/>
+
+  <circle cx="188" cy="166" r="42" fill="#ffffff" opacity="0.86" filter="url(#glow)"/>
+  <circle cx="191" cy="160" r="22" fill="#ffffff" opacity="0.92"/>
+
+  <g transform="translate(120 136) scale(13)" stroke="#0f172a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+    <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+    <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+  </g>
+</svg>

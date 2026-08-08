@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* 60% Dominant */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    /* 30% Secondary */
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border-color: #e2e8f0;
+    /* 10% Accent */
+    --accent-color: #00e5ff;
+    --accent-hover: #00b3cc;
+    --accent-light: rgba(0, 229, 255, 0.1);
+    /* Tokens */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    --shadow-3d: 0 10px 30px -5px rgba(0, 229, 255, 0.12), 0 20px 25px -5px rgba(15, 23, 42, 0.05);
+    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Custom Utilities for 3D Cards, Spheres, Glass, and Animations */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-fast);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px) rotate(0.5deg);
+  box-shadow: var(--shadow-3d);
+  border-color: rgba(0, 229, 255, 0.4);
+}
+
+/* 3D Sphere Icon Container */
+.sphere-3d {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e0f7fa 40%, #00e5ff 100%);
+  box-shadow: inset -2px -2px 6px rgba(0, 179, 204, 0.4), inset 2px 2px 5px rgba(255, 255, 255, 0.9), 0 8px 16px -4px rgba(0, 229, 255, 0.3);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+/* Ambient Cyan Glow Orbs */
+.cyan-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.18) 0%, rgba(0, 229, 255, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00b3cc;
+}

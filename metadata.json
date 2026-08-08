@@ -1,0 +1,6 @@
+{
+  "name": "Digital Waves",
+  "description": "Production-grade 3D agency website for Digital Waves featuring animated wave-mesh background, custom web apps, AI agent chatbots, n8n automation, interactive portfolio catalog, and contact integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
