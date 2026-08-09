@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://digitalwaves.netlify.app/sitemap.xml
+Sitemap: https://digitalwavesz.netlify.app/sitemap.xml
