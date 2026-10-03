@@ -20,7 +20,7 @@ export const HomePreloader: React.FC<HomePreloaderProps> = ({ progress, isExitin
       initial={{ opacity: 1 }}
       animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 0.45, ease: easeOutCurve }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#f8fafc] text-[#0f172a] overflow-hidden"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#061018] text-white overflow-hidden"
     >
       <span className="sr-only">Loading Digital Waves...</span>
 
@@ -59,7 +59,7 @@ export const HomePreloader: React.FC<HomePreloaderProps> = ({ progress, isExitin
                   ? { duration: 0.45, ease: easeOutCurve }
                   : { duration: 1.6, repeat: Infinity, ease: 'easeInOut' }
               }
-              className="absolute -bottom-4 left-1/2 h-5 w-32 -translate-x-1/2 rounded-full bg-[#00e5ff]/20 blur-lg"
+              className="absolute -bottom-4 left-1/2 h-5 w-32 -translate-x-1/2 rounded-full bg-[#00e5ff]/25 blur-lg"
             />
 
             <img
@@ -73,13 +73,13 @@ export const HomePreloader: React.FC<HomePreloaderProps> = ({ progress, isExitin
         </div>
 
         <div className="flex flex-col items-center gap-2">
-          <div className="h-1.5 w-44 overflow-hidden rounded-full bg-slate-200/80">
+          <div className="h-1.5 w-44 overflow-hidden rounded-full bg-white/10">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-[#0f6f7a] to-[#2dd9e6] transition-[width] duration-200 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-[#0f6f7a] to-[#8ffcff] transition-[width] duration-200 ease-out"
               style={{ width: `${isExiting ? 100 : progress}%` }}
             />
           </div>
-          <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-500">
+          <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
             Loading...
           </p>
         </div>
