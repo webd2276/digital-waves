@@ -6,6 +6,18 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
+    build: {
+      rollupOptions: {
+        output: {
+          // three.js changes rarely; keeping it in its own chunk means app-code deploys
+          // don't invalidate it in visitors' caches. It is only ever pulled in by the
+          // lazy-loaded 3D scene, never by the main entry.
+          manualChunks(id: string) {
+            if (id.includes('node_modules/three/')) return 'three';
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

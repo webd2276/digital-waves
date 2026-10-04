@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { RoutePath } from './types';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { SiteBackdrop3D } from './three/SiteBackdrop3D';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -78,6 +79,8 @@ export default function App() {
 
   return (
     <div className="relative isolate min-h-screen flex flex-col bg-white text-[#0f172a] selection:bg-[#00e5ff]/20 selection:text-[#00b3cc] overflow-x-hidden">
+      {/* Persistent 3D scene behind the page. Mounted only on routes that opt in. */}
+      <SiteBackdrop3D active={currentPath === '/'} />
       <Navbar currentPath={currentPath} onNavigate={navigate} />
       <main className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
