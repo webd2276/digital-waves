@@ -180,8 +180,31 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   }, [showPreloader]);
 
   return (
-    <div className="min-h-screen bg-white pt-20">
+    // No solid background here: the fixed 3D backdrop (SiteBackdrop3D) shows through the sections.
+    // Each section keeps a translucent tint so the page still reads correctly when 3D is off.
+    <div className="min-h-screen pt-20">
       {showPreloader && <HomePreloader progress={preloaderProgress} isExiting={isPreloaderExiting} />}
+<!--  claude/3d-backdrop -->
+      {/* HERO SECTION: the 3D wave lives behind this, in the fixed backdrop */}
+      <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden py-16">
+        {/* Ambient Glow Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.12, 0.22, 0.12],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="cyan-glow-orb w-[500px] h-[500px] -top-20 -left-20"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="cyan-glow-orb w-[500px] h-[500px] -bottom-20 -right-20"
+        />
+
       <section className="hero-stage relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-[#061018] py-20 text-white sm:py-24">
         <Suspense fallback={<div className="hero-scene hero-scene-fallback absolute inset-0" aria-hidden="true" />}>
           <HeroBuilderScene className="hero-scene" />
@@ -189,6 +212,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="hero-vignette absolute inset-0" aria-hidden="true" />
         <div className="hero-glow absolute -right-40 top-1/2 h-[32rem] w-[32rem] -translate-y-1/2 rounded-full" aria-hidden="true" />
+ main
 
         <motion.div
           variants={containerVariants}
@@ -283,7 +307,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* WHAT WE DO SECTION (3 PILLARS) */}
+<!-- <<<<<<< claude/3d-backdrop -->
+      <section className="py-24 bg-slate-50/70 relative">
+
       <section id="capabilities" className="py-24 bg-slate-50 relative">
+ main
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -406,7 +434,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* PROCESS SECTION: 4-STEP HORIZONTAL TIMELINE WITH WAVE CONNECTING LINE */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 bg-white/60 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="text-xs font-bold uppercase tracking-widest text-[#00b3cc] mb-2">How We Work</div>
@@ -472,7 +500,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* PORTFOLIO TEASER SECTION */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -539,7 +567,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* INSTANT PROJECT ESTIMATOR / ESTIMATE HELPER */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-card rounded-2xl p-8 sm:p-10 border border-slate-200 bg-gradient-to-br from-white to-slate-50 shadow-xl">
             <div className="flex items-center gap-3 mb-6">
@@ -648,7 +676,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section className="py-24 bg-slate-50 overflow-hidden relative">
+      <section className="py-24 bg-slate-50/70 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <div className="text-center max-w-3xl mx-auto">
             <div className="text-xs font-bold uppercase tracking-widest text-[#00b3cc] mb-2">
@@ -664,10 +692,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Continuous Infinite Scrolling Carousel Container */}
-        <div className="relative w-full overflow-hidden py-4">
-          {/* Gradient fade masks on left and right edges for smooth visual transition */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent z-10 pointer-events-none" />
+        {/* Edge fade via mask-image (not opaque overlays), so the 3D backdrop stays visible behind the marquee */}
+        <div className="relative w-full overflow-hidden py-4 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
 
           {/* Marquee Track */}
           <div className="flex w-max group">
