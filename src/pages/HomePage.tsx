@@ -184,27 +184,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     // Each section keeps a translucent tint so the page still reads correctly when 3D is off.
     <div className="min-h-screen pt-20">
       {showPreloader && <HomePreloader progress={preloaderProgress} isExiting={isPreloaderExiting} />}
-<!--  claude/3d-backdrop -->
-      {/* HERO SECTION: the 3D wave lives behind this, in the fixed backdrop */}
-      <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden py-16">
-        {/* Ambient Glow Orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.12, 0.22, 0.12],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="cyan-glow-orb w-[500px] h-[500px] -top-20 -left-20"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.25, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="cyan-glow-orb w-[500px] h-[500px] -bottom-20 -right-20"
-        />
-
       <section className="hero-stage relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-[#061018] py-20 text-white sm:py-24">
         <Suspense fallback={<div className="hero-scene hero-scene-fallback absolute inset-0" aria-hidden="true" />}>
           <HeroBuilderScene className="hero-scene" />
@@ -212,7 +191,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="hero-grid absolute inset-0" aria-hidden="true" />
         <div className="hero-vignette absolute inset-0" aria-hidden="true" />
         <div className="hero-glow absolute -right-40 top-1/2 h-[32rem] w-[32rem] -translate-y-1/2 rounded-full" aria-hidden="true" />
- main
 
         <motion.div
           variants={containerVariants}
@@ -307,11 +285,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* WHAT WE DO SECTION (3 PILLARS) */}
-<!-- <<<<<<< claude/3d-backdrop -->
-      <section className="py-24 bg-slate-50/70 relative">
-
-      <section id="capabilities" className="py-24 bg-slate-50 relative">
- main
+      <section id="capabilities" className="py-24 bg-slate-50/70 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
