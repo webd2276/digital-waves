@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { RoutePath } from '../types';
 import { HomePreloader } from '../components/preloader/HomePreloader';
@@ -14,12 +14,17 @@ import {
   ArrowRight,
   CheckCircle2,
   Star,
-  ChevronRight,
   Calculator,
   Zap,
   TrendingUp,
   Award,
 } from 'lucide-react';
+
+const HeroBuilderScene = lazy(() =>
+  import('../components/hero/HeroBuilderScene').then(({ HeroBuilderScene: Scene }) => ({
+    default: Scene,
+  })),
+);
 
 interface HomePageProps {
   onNavigate: (path: RoutePath) => void;
@@ -179,6 +184,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     // Each section keeps a translucent tint so the page still reads correctly when 3D is off.
     <div className="min-h-screen pt-20">
       {showPreloader && <HomePreloader progress={preloaderProgress} isExiting={isPreloaderExiting} />}
+<!--  claude/3d-backdrop -->
       {/* HERO SECTION: the 3D wave lives behind this, in the fixed backdrop */}
       <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden py-16">
         {/* Ambient Glow Orbs */}
@@ -199,93 +205,113 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           className="cyan-glow-orb w-[500px] h-[500px] -bottom-20 -right-20"
         />
 
+      <section className="hero-stage relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-[#061018] py-20 text-white sm:py-24">
+        <Suspense fallback={<div className="hero-scene hero-scene-fallback absolute inset-0" aria-hidden="true" />}>
+          <HeroBuilderScene className="hero-scene" />
+        </Suspense>
+        <div className="hero-grid absolute inset-0" aria-hidden="true" />
+        <div className="hero-vignette absolute inset-0" aria-hidden="true" />
+        <div className="hero-glow absolute -right-40 top-1/2 h-[32rem] w-[32rem] -translate-y-1/2 rounded-full" aria-hidden="true" />
+ main
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center"
+          className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:px-10"
         >
-          {/* H1 Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl text-[#0f172a] tracking-tight leading-[1.08] max-w-5xl mx-auto mb-6"
-          >
-            We Build Your Website.{' '}
-            <span className="bg-gradient-to-r from-[#0f172a] via-[#00b3cc] to-[#00e5ff] bg-clip-text text-transparent">
-              You Ride the Wave of Growth.
-            </span>
-          </motion.h1>
-
-          {/* Subtext */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg sm:text-xl text-[#475569] max-w-3xl mx-auto leading-relaxed mb-10"
-          >
-            Digital Waves is a full-stack web agency building WordPress sites, custom web apps, and AI-powered automation — from first line of code to live deployment.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
-            <motion.button
-              whileHover={{ scale: 1.04, boxShadow: '0 15px 30px rgba(0,229,255,0.5)' }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => onNavigate('/contact')}
-              className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-[#00e5ff] text-[#0f172a] font-extrabold text-base shadow-[0_10px_25px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              Get Free Quote <Sparkles className="w-5 h-5 text-[#0f172a]" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.04, backgroundColor: '#f8fafc' }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => onNavigate('/catalog')}
-              className="w-full sm:w-auto px-8 py-4 rounded-[10px] bg-white text-[#0f172a] font-bold text-base border border-[#e2e8f0] shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              View Our Work <ChevronRight className="w-5 h-5 text-[#00b3cc]" />
-            </motion.button>
-          </motion.div>
-
-          {/* 3 Stat Pills */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
+          <div className="max-w-2xl">
             <motion.div
-              whileHover={{ y: -4, borderColor: '#00e5ff' }}
-              className="glass-card rounded-xl p-4 text-center bg-white border border-[#e2e8f0] transition-colors"
+              variants={itemVariants}
+              className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300 backdrop-blur-md sm:text-xs"
             >
-              <div className="font-display font-extrabold text-2xl sm:text-3xl text-[#0f172a] flex items-center justify-center gap-1">
-                <TrendingUp className="w-5 h-5 text-[#00b3cc]" /> 120+
-              </div>
-              <div className="text-xs font-bold text-[#475569] uppercase tracking-wider mt-1">Websites Delivered</div>
+              <span className="hero-status-dot h-1.5 w-1.5 rounded-full bg-[#54f0d1]" />
+              Web experiences · AI systems · automation
+            </motion.div>
+
+            <motion.h1
+              variants={itemVariants}
+              className="font-display mb-6 max-w-3xl text-[clamp(3rem,7vw,6.4rem)] font-semibold leading-[0.97] tracking-[-0.07em] text-white"
+            >
+              Make your next
+              <span className="hero-title-accent block">digital move.</span>
+            </motion.h1>
+
+            <motion.p
+              variants={itemVariants}
+              className="mb-9 max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8"
+            >
+              We turn ambitious ideas into standout websites, useful AI, and connected systems — designed to move your business forward.
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row">
+              <motion.button
+                whileHover={{ y: -2, boxShadow: '0 14px 38px rgba(45,217,230,0.25)' }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => onNavigate('/contact')}
+                className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#8ffcff] px-7 text-sm font-extrabold text-[#061018] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ffcff]"
+              >
+                Start a project <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </motion.button>
+              <motion.button
+                whileHover={{ y: -2, backgroundColor: 'rgba(255,255,255,0.09)' }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => onNavigate('/catalog')}
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.035] px-7 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:border-white/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Explore our work
+              </motion.button>
             </motion.div>
 
             <motion.div
-              whileHover={{ y: -4, borderColor: '#00e5ff' }}
-              className="glass-card rounded-xl p-4 text-center bg-white border border-[#e2e8f0] transition-colors"
+              variants={itemVariants}
+              className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/10 pt-6"
             >
-              <div className="font-display font-extrabold text-2xl sm:text-3xl text-[#00b3cc] flex items-center justify-center gap-1">
-                <Zap className="w-5 h-5 text-[#00b3cc]" /> 350+
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <TrendingUp className="h-4 w-4 text-[#8ffcff]" />
+                <span><strong className="font-display text-base text-white">120+</strong> sites delivered</span>
               </div>
-              <div className="text-xs font-bold text-[#475569] uppercase tracking-wider mt-1">Automations Built</div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ y: -4, borderColor: '#00e5ff' }}
-              className="glass-card rounded-xl p-4 text-center bg-white border border-[#e2e8f0] transition-colors"
-            >
-              <div className="font-display font-extrabold text-2xl sm:text-3xl text-[#0f172a] flex items-center justify-center gap-1">
-                <Award className="w-5 h-5 text-[#00b3cc]" /> 99.8%
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <Zap className="h-4 w-4 text-[#8ffcff]" />
+                <span><strong className="font-display text-base text-white">350+</strong> workflows built</span>
               </div>
-              <div className="text-xs font-bold text-[#475569] uppercase tracking-wider mt-1">Client Satisfaction</div>
+              <div className="flex items-center gap-2 text-xs text-slate-400">
+                <Award className="h-4 w-4 text-[#8ffcff]" />
+                <span><strong className="font-display text-base text-white">99.8%</strong> client satisfaction</span>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Trust Line */}
-          <motion.div variants={itemVariants} className="text-xs font-bold uppercase tracking-widest text-[#475569]">
-            WordPress • MERN Stack • n8n Automation • AI Agents
-          </motion.div>
+          <div className="hidden min-h-[28rem] lg:block" aria-hidden="true">
+            <div className="hero-scene-label absolute right-[7%] top-[14%] flex items-center gap-3 rounded-2xl border border-white/10 bg-[#07141de0] px-4 py-3 shadow-2xl backdrop-blur-xl">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8ffcff]/10 text-[#8ffcff]">
+                <Sparkles className="h-4 w-4" />
+              </span>
+              <span>
+                <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-slate-500">The build</span>
+                <span className="mt-0.5 block text-xs font-semibold text-white">From idea to live</span>
+              </span>
+            </div>
+            <div className="absolute bottom-[15%] right-[8%] rounded-full border border-white/10 bg-[#07141de0] px-4 py-2.5 text-[10px] font-semibold tracking-wide text-slate-300 shadow-xl backdrop-blur-xl">
+              DESIGN <span className="mx-2 text-[#54f0d1]">/</span> ENGINEERING <span className="mx-2 text-[#54f0d1]">/</span> GROWTH
+            </div>
+          </div>
         </motion.div>
+
+        <a
+          href="#capabilities"
+          className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-3 text-[9px] font-bold uppercase tracking-[0.24em] text-slate-500 transition-colors hover:text-white sm:flex"
+        >
+          Scroll to explore <span className="hero-scroll-line h-8 w-px bg-gradient-to-b from-[#54f0d1] to-transparent" />
+        </a>
       </section>
 
       {/* WHAT WE DO SECTION (3 PILLARS) */}
+<!-- <<<<<<< claude/3d-backdrop -->
       <section className="py-24 bg-slate-50/70 relative">
+
+      <section id="capabilities" className="py-24 bg-slate-50 relative">
+ main
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
